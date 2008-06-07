@@ -1,0 +1,11 @@
+--- 
+abstract: could not extract abstract from t/lib/Child.pm
+author: 
+  - Ricardo SIGNES <rjbs@cpan.org>
+generated_by: Dist::Zilla::Plugin::MetaYaml version 0.003
+license: perl
+name: Data-Section
+requires: 
+  MRO::Compat: 0.05
+  Sub::Exporter: 0.979
+version: 0.001
