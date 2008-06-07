@@ -8,4 +8,4 @@ name: Data-Section
 requires: 
   MRO::Compat: 0.05
   Sub::Exporter: 0.979
-version: 0.001
+version: 0.002

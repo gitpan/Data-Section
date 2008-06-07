@@ -1,9 +1,8 @@
 use strict;
 use warnings;
-package Godfather;
+package NoData;
 our $VERSION = '0.002';
 
+use Data::Section -setup;
+
 1;
-__DATA__
-__[a]__
-foo

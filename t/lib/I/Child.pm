@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package I::Child;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 use Godfather;
 use base qw(I::Parent Godfather);

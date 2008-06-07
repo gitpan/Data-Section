@@ -12,6 +12,7 @@ t/lib/Grandchild.pm
 t/lib/I/Child.pm
 t/lib/I/Grandchild.pm
 t/lib/I/Parent.pm
+t/lib/NoData.pm
 t/lib/Parent.pm
 t/release-perl-critic.t
 t/release-pod-coverage.t

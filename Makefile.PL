@@ -9,7 +9,7 @@ WriteMakefile(
   NAME     => 'Data::Section',
   AUTHOR   => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
   ABSTRACT => 'could not extract abstract from t/lib/Child.pm',
-  VERSION  => '0.001',
+  VERSION  => '0.002',
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
     "Sub::Exporter" => '0.979',

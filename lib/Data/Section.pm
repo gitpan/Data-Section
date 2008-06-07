@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -31,6 +31,7 @@ sub _mk_reader_group {
     my $template = $stash{ $pkg } = { };
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
+    return $stash{ $pkg} unless defined fileno *$dh;
 
     my $current;
     LINE: while (my $line = <$dh>) {
@@ -95,6 +96,7 @@ sub _mk_reader_group {
   return \%export;
 }
 
+
 1;
 
 __END__
@@ -107,7 +109,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 
@@ -146,6 +148,11 @@ Data::Section provides an easy way to access multiple named chunks of
 line-oriented data in your module's DATA section.  It was written to allow
 modules to store their own templates, but probably has other uses.
 
+=head1 WARNING
+
+You will need to use C<__DATA__> sections and not C<__END__> sections.  Yes, it
+matters.  Who knew!
+
 =head1 EXPORTS
 
 To get the methods exported by Data::Section, you must import like this:
@@ -159,7 +166,7 @@ Optional arguments may be given to Data::Section like this:
 Valid arguments are:
 
     inherit - if true, allow packages to inherit the data of the packages
-              from which they inherit
+              from which they inherit; default: true
 
     header_re - if given, changes the regex used to find section headers
                 in the data section; it should leave the section name in $1
@@ -218,6 +225,19 @@ operate on the package into which the object was blessed.
 This method needs to be used carefull, because it's weird.  It returns only the
 data for the package on which it was invoked.  If the package on which it was
 invoked has no data sections, it returns an empty hashref.
+
+=cut 
+
+=head1 SEE ALSO
+
+L<Inline::Files|Inline::Files> does something that is at first look similar,
+but it works with source filters, and contains the warning:
+
+    It is possible that this module may overwrite the source code in files that
+    use it. To protect yourself against this possibility, you are strongly
+    advised to use the -backup option described in "Safety first".
+
+Enough said.
 
 =cut 
 
