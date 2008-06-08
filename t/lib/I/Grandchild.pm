@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package I::Grandchild;
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 use base 'I::Child';
 

@@ -6,6 +6,6 @@ generated_by: Dist::Zilla::Plugin::MetaYaml version 0.003
 license: perl
 name: Data-Section
 requires: 
-  MRO::Compat: 0.05
+  Class::ISA: 0
   Sub::Exporter: 0.979
-version: 0.002
+version: 0.003

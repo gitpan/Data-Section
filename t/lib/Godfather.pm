@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Godfather;
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 1;
 __DATA__
