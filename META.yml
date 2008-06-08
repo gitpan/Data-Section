@@ -8,4 +8,4 @@ name: Data-Section
 requires: 
   Class::ISA: 0
   Sub::Exporter: 0.979
-version: 0.003
+version: 0.004
