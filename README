@@ -1,9 +1,9 @@
 
 
 This archive contains the distribution Data-Section, version
-0.004:
+0.005:
 
-  could not extract abstract from t/lib/Child.pm
+  read multiple hunks of data out of your DATA section
 
 This software is copyright (c) 2008 by Ricardo SIGNES.
 

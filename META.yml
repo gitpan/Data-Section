@@ -1,11 +1,11 @@
 --- 
-abstract: could not extract abstract from t/lib/Child.pm
+abstract: read multiple hunks of data out of your DATA section
 author: 
   - Ricardo SIGNES <rjbs@cpan.org>
-generated_by: Dist::Zilla::Plugin::MetaYaml version 0.003
+generated_by: Dist::Zilla::Plugin::MetaYaml version 0.005
 license: perl
 name: Data-Section
 requires: 
   Class::ISA: 0
   Sub::Exporter: 0.979
-version: 0.004
+version: 0.005

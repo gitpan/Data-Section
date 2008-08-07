@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -111,7 +111,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
@@ -228,8 +228,6 @@ This method needs to be used carefull, because it's weird.  It returns only the
 data for the package on which it was invoked.  If the package on which it was
 invoked has no data sections, it returns an empty hashref.
 
-=cut 
-
 =head1 SEE ALSO
 
 L<Inline::Files|Inline::Files> does something that is at first look similar,
@@ -240,8 +238,6 @@ but it works with source filters, and contains the warning:
     advised to use the -backup option described in "Safety first".
 
 Enough said.
-
-=cut 
 
 =head1 AUTHOR
 
@@ -254,5 +250,6 @@ This software is copyright (c) 2008 by Ricardo SIGNES.
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.
 
+=cut 
 
 

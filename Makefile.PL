@@ -5,11 +5,12 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
-  DISTNAME => 'Data-Section',
-  NAME     => 'Data::Section',
-  AUTHOR   => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
-  ABSTRACT => 'could not extract abstract from t/lib/Child.pm',
-  VERSION  => '0.004',
+  DISTNAME  => 'Data-Section',
+  NAME      => 'Data::Section',
+  AUTHOR    => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
+  ABSTRACT  => 'read multiple hunks of data out of your DATA section',
+  VERSION   => '0.005',
+  EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
     "Class::ISA" => '0',

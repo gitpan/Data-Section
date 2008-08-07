@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package I::Parent;
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 use Data::Section -setup;
 
