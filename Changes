@@ -1,5 +1,12 @@
 Revision history for Data-Section
 
+0.091820  2009-07-01 18:25:50 UTC
+          add docs on using ForMethod to avoid autocleaning (thanks, Kent
+          Fredric)
+
+0.006     2008-11-23
+          remove smoke tests that did nothing useful; thanks Florian
+
 0.005     2008-08-07
           rebuild to ensure directory entries in archive
 

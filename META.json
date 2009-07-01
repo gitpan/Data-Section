@@ -1,0 +1,21 @@
+{
+   "resources" : {
+      "repository" : "http://github.com/rjbs/data-section/tree"
+   },
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.091480",
+   "version" : "0.091820",
+   "name" : "Data-Section",
+   "author" : [
+      "Ricardo SIGNES <rjbs@cpan.org>"
+   ],
+   "license" : "perl",
+   "requires" : {
+      "Class::ISA" : "0",
+      "Sub::Exporter" : "0.979"
+   },
+   "abstract" : "read multiple hunks of data out of your DATA section"
+}

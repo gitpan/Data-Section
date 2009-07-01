@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.005';
+our $VERSION = '0.091820';
 
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -111,38 +111,38 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.005
+version 0.091820
 
 =head1 SYNOPSIS
 
-    package Letter::Resignation;
-    use Data::Section -setup;
+  package Letter::Resignation;
+  use Data::Section -setup;
 
-    sub quit {
-      my ($class, $angry, %arg) = @_;
+  sub quit {
+    my ($class, $angry, %arg) = @_;
 
-      my $template = $self->section_data(
-        ($angry ? "angry_" : "professional_") . "letter"
-      );
+    my $template = $self->section_data(
+      ($angry ? "angry_" : "professional_") . "letter"
+    );
 
-      return fill_in($$template, \%arg);
-    }
+    return fill_in($$template, \%arg);
+  }
 
-    __DATA__
-    __[ angry_letter ]__
-    Dear jerks,
+  __DATA__
+  __[ angry_letter ]__
+  Dear jerks,
 
-      I quit!
+    I quit!
 
-    -- 
-    {{ $name }}
-    __[ professional_letter ]__
-    Dear {{ $boss }},
+  -- 
+  {{ $name }}
+  __[ professional_letter ]__
+  Dear {{ $boss }},
 
-      I quit, jerks!
+    I quit, jerks!
 
-    -- 
-    {{ $name }}
+  -- 
+  {{ $name }}
 
 =head1 DESCRIPTION
 
@@ -159,25 +159,25 @@ matters.  Who knew!
 
 To get the methods exported by Data::Section, you must import like this:
 
-    use Data::Section -setup;
+  use Data::Section -setup;
 
 Optional arguments may be given to Data::Section like this:
 
-    use Data::Section -setup => { ... };
+  use Data::Section -setup => { ... };
 
 Valid arguments are:
 
-    inherit - if true, allow packages to inherit the data of the packages
-              from which they inherit; default: true
+  inherit - if true, allow packages to inherit the data of the packages
+            from which they inherit; default: true
 
-    header_re - if given, changes the regex used to find section headers
-                in the data section; it should leave the section name in $1
+  header_re - if given, changes the regex used to find section headers
+              in the data section; it should leave the section name in $1
 
 Three methods are exported by Data::Section:
 
 =head2 section_data
 
-    my $string_ref = $pkg->section_data($name); 
+  my $string_ref = $pkg->section_data($name); 
 
 This method returns a reference to a string containing the data from the name
 section, either in the invocant's C<DATA> section or in that of one of its
@@ -186,7 +186,7 @@ Data::Section.)
 
 By default, named sections are delimited by lines that look like this:
 
-    __[ name ]__
+  __[ name ]__
 
 You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
@@ -194,7 +194,7 @@ above).
 
 =head2 merged_section_data
 
-    my $data = $pkg->merged_section_data;
+  my $data = $pkg->merged_section_data;
 
 This method returns a hashref containing all the data extracted from the
 package data for all the classes from which the invocant inherits -- as long as
@@ -203,11 +203,11 @@ imported.
 
 In other words, given this inheritence tree:
 
-    A
-     \
-      B   C
-       \ /
-        D
+  A
+   \
+    B   C
+     \ /
+      D
 
 ...if Data::Section was imported by A, then when D's C<merged_section_data> is
 invoked, C's data section will not be considered.  (This prevents the read
@@ -218,7 +218,7 @@ B<references to> the strings extracted from the data sections.
 
 =head2 local_section_data
 
-    my $data = $pkg->local_section_data;
+  my $data = $pkg->local_section_data;
 
 This method returns a hashref containing all the data extracted from the
 package on which the method was invoked.  If called on an object, it will
@@ -228,14 +228,52 @@ This method needs to be used carefull, because it's weird.  It returns only the
 data for the package on which it was invoked.  If the package on which it was
 invoked has no data sections, it returns an empty hashref.
 
+=head1 TIPS AND TRICKS
+
+=head2 MooseX::Declare and namespace::autoclean
+
+The L<namespace::autoclean|namespace::autoclean> library automatically cleans
+foreign routines from a class, including those imported by Data::Section.
+
+L<MooseX::Declare|MooseX::Declare> does the same thing, and can also cause your
+C<__DATA__> section to appear outside your class's package.
+
+These are easy to address.  The
+L<Sub::Exporter::ForMethods|Sub::Exporter::ForMethods> library provides an
+installer that will cause installed methods to appear to come from the class
+and avoid autocleaning.  Using an explicit C<package> statement will keep the
+data section in the correct package.
+
+   package Foo;
+
+   use MooseX::Declare;
+   class Foo {
+
+     # Utility to tell Sub::Exporter modules to export methods.
+     use Sub::Exporter::ForMethods qw( method_installer );
+
+     # method_installer returns a sub.
+     use Data::Section { installer => method_installer }, -setup;
+
+     method my_method {
+        my $content_ref = $self->section_data('SectionA');
+
+        print $$content_ref;
+     }
+   }
+
+   __DATA__
+   __[ SectionA ]__
+   Hello, world.
+
 =head1 SEE ALSO
 
 L<Inline::Files|Inline::Files> does something that is at first look similar,
 but it works with source filters, and contains the warning:
 
-    It is possible that this module may overwrite the source code in files that
-    use it. To protect yourself against this possibility, you are strongly
-    advised to use the -backup option described in "Safety first".
+  It is possible that this module may overwrite the source code in files that
+  use it. To protect yourself against this possibility, you are strongly
+  advised to use the -backup option described in "Safety first".
 
 Enough said.
 
@@ -245,7 +283,7 @@ Enough said.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Ricardo SIGNES.
+This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

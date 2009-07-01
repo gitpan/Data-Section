@@ -1,7 +1,7 @@
 Changes
 LICENSE
 MANIFEST
-META.yml
+META.json
 Makefile.PL
 README
 lib/Data/Section.pm
@@ -15,4 +15,3 @@ t/lib/I/Parent.pm
 t/lib/NoData.pm
 t/lib/Parent.pm
 t/release-perl-critic.t
-t/smoke-env.t

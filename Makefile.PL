@@ -8,8 +8,8 @@ WriteMakefile(
   DISTNAME  => 'Data-Section',
   NAME      => 'Data::Section',
   AUTHOR    => 'Ricardo\ SIGNES\ \<rjbs\@cpan\.org\>',
-  ABSTRACT  => 'read multiple hunks of data out of your DATA section',
-  VERSION   => '0.005',
+  ABSTRACT  => 'read\ multiple\ hunks\ of\ data\ out\ of\ your\ DATA\ section',
+  VERSION   => '0.091820',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
