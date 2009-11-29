@@ -1,7 +1,8 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.091820';
+our $VERSION = '0.093330';
+
 
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -102,7 +103,6 @@ sub _mk_reader_group {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -111,11 +111,14 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.091820
+version 0.093330
 
 =head1 SYNOPSIS
 
   package Letter::Resignation;
+our $VERSION = '0.093330';
+
+
   use Data::Section -setup;
 
   sub quit {
@@ -140,6 +143,7 @@ version 0.091820
   Dear {{ $boss }},
 
     I quit, jerks!
+
 
   -- 
   {{ $name }}
@@ -245,6 +249,9 @@ and avoid autocleaning.  Using an explicit C<package> statement will keep the
 data section in the correct package.
 
    package Foo;
+our $VERSION = '0.093330';
+
+
 
    use MooseX::Declare;
    class Foo {
@@ -286,8 +293,7 @@ Enough said.
 This software is copyright (c) 2009 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

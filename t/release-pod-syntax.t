@@ -7,12 +7,9 @@ BEGIN {
   }
 }
 
-use strict;
-use warnings;
 use Test::More;
 
-if (eval { require Test::Perl::Critic }) {
-  Test::Perl::Critic::all_critic_ok();
-} else {
-  plan skip_all => "couldn't load Test::Perl::Critic";
-}
+eval "use Test::Pod 1.00";
+plan skip_all => "Test::Pod 1.00 required for testing POD" if $@;
+
+all_pod_files_ok();
