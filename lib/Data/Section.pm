@@ -1,9 +1,7 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.093330';
-
-
+our $VERSION = '0.093410';
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
 use Class::ISA;
@@ -35,6 +33,10 @@ sub _mk_reader_group {
     return $stash{ $pkg} unless defined fileno *$dh;
 
     my $current;
+    if ($arg->{default_name}) {
+        $current = $arg->{default_name};
+        $template->{ $current } = \(my $blank = q{});
+    }
     LINE: while (my $line = <$dh>) {
       if ($line =~ $header_re) {
         $current = $1;
@@ -111,14 +113,11 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.093330
+version 0.093410
 
 =head1 SYNOPSIS
 
   package Letter::Resignation;
-our $VERSION = '0.093330';
-
-
   use Data::Section -setup;
 
   sub quit {
@@ -171,11 +170,14 @@ Optional arguments may be given to Data::Section like this:
 
 Valid arguments are:
 
-  inherit - if true, allow packages to inherit the data of the packages
-            from which they inherit; default: true
+  inherit      - if true, allow packages to inherit the data of the packages
+                 from which they inherit; default: true
 
-  header_re - if given, changes the regex used to find section headers
-              in the data section; it should leave the section name in $1
+  header_re    - if given, changes the regex used to find section headers
+                 in the data section; it should leave the section name in $1
+
+  default_name - if given, allows the first section to has no header and set
+                 its name
 
 Three methods are exported by Data::Section:
 
@@ -249,9 +251,6 @@ and avoid autocleaning.  Using an explicit C<package> statement will keep the
 data section in the correct package.
 
    package Foo;
-our $VERSION = '0.093330';
-
-
 
    use MooseX::Declare;
    class Foo {

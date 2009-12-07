@@ -15,6 +15,7 @@ t/lib/I/Child.pm
 t/lib/I/Grandchild.pm
 t/lib/I/Parent.pm
 t/lib/NoData.pm
+t/lib/NoName.pm
 t/lib/Parent.pm
 t/release-pod-coverage.t
 t/release-pod-syntax.t

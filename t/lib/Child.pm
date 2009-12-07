@@ -1,9 +1,7 @@
 use strict;
 use warnings;
 package Child;
-our $VERSION = '0.093330';
-
-
+our $VERSION = '0.093410';
 use Godfather;
 use base qw(Parent Godfather);
 1;

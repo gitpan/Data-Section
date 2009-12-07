@@ -2,7 +2,7 @@
 abstract: 'read multiple hunks of data out of your DATA section'
 author:
   - 'Ricardo SIGNES <rjbs@cpan.org>'
-generated_by: 'Dist::Zilla version 1.093290'
+generated_by: 'Dist::Zilla version 1.093400'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -13,4 +13,4 @@ requires:
   Sub::Exporter: 0.979
 resources:
   repository: http://github.com/rjbs/data-section
-version: 0.093330
+version: 0.093410
