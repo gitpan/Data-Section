@@ -1,10 +1,10 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.093410';
+our $VERSION = '0.100270';
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
-use Class::ISA;
+use MRO::Compat 0.09;
 use Sub::Exporter 0.979 -setup => {
   groups     => { setup => \'_mk_reader_group' },
   collectors => { INIT => sub { $_[0] = { into => $_[1]->{into} } } },
@@ -30,7 +30,7 @@ sub _mk_reader_group {
     my $template = $stash{ $pkg } = { };
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
-    return $stash{ $pkg} unless defined fileno *$dh;
+    return $stash{ $pkg } unless defined fileno *$dh;
 
     my $current;
     if ($arg->{default_name}) {
@@ -55,6 +55,12 @@ sub _mk_reader_group {
     return $stash{ $pkg };
   };
 
+  $export{local_section_data_names} = sub {
+    my ($self) = @_;
+    my $method = $export{local_section_data};
+    return keys %{ $self->$method };
+  };
+
   $export{merged_section_data} =
     !$arg->{inherit} ? $export{local_section_data} : sub {
 
@@ -64,7 +70,7 @@ sub _mk_reader_group {
     my $lsd = $export{local_section_data};
 
     my %merged;
-    for my $class (Class::ISA::self_and_super_path($pkg)) {
+    for my $class (@{ mro::get_linear_isa($pkg) }) {
       # in case of c3 + non-$base item showing up
       next unless $class->isa($base);
       my $sec_data = $class->$lsd;
@@ -77,25 +83,30 @@ sub _mk_reader_group {
     return \%merged;
   };
 
+  $export{merged_section_data_names} = sub {
+    my ($self) = @_;
+    my $method = $export{merged_section_data};
+    return keys %{ $self->$method };
+  };
+
   $export{section_data} = sub {
     my ($self, $name) = @_;
     my $pkg = ref $self ? ref $self : $self;
 
-    my @to_check = $arg->{inherit}
-                 ? Class::ISA::self_and_super_path($pkg) 
-                 : $pkg;
+    my $prefix = $arg->{inherit} ? 'merged' : 'local';
+    my $method = "$prefix\_section_data";
 
-    my $lsd = $export{local_section_data}; # in case they use another name
+    my $data = $self->$method;
 
-    for my $class (@to_check) {
-      # in case of c3 + non-$base item showing up
-      next unless $class->isa($base);
+    return $data->{ $name };
+  };
 
-      return $class->$lsd->{$name}
-        if exists $class->$lsd->{$name};
-    }
+  $export{section_data_names} = sub {
+    my ($self) = @_;
 
-    return undef; ## no critic Undef
+    my $prefix = $arg->{inherit} ? 'merged' : 'local';
+    my $method = "$prefix\_section_data_names";
+    return $self->$method;
   };
 
   return \%export;
@@ -113,7 +124,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.093410
+version 0.100270
 
 =head1 SYNOPSIS
 
@@ -198,6 +209,13 @@ You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
 above).
 
+=head2 section_data_names
+
+  my @names = $pkg->section_data_names;
+
+This returns a list of all the names that will be recognized by the
+C<section_data> method.
+
 =head2 merged_section_data
 
   my $data = $pkg->merged_section_data;
@@ -222,6 +240,13 @@ position of C's data handle from being altered unexpectedly.)
 The keys in the returned hashref are the section names, and the values are
 B<references to> the strings extracted from the data sections.
 
+=head2 merged_section_data_names
+
+  my @names = $pkg->merged_section_data_names;
+
+This returns a list of all the names that will be recognized by the
+C<merged_section_data> method.
+
 =head2 local_section_data
 
   my $data = $pkg->local_section_data;
@@ -233,6 +258,13 @@ operate on the package into which the object was blessed.
 This method needs to be used carefull, because it's weird.  It returns only the
 data for the package on which it was invoked.  If the package on which it was
 invoked has no data sections, it returns an empty hashref.
+
+=head2 local_section_data_names
+
+  my @names = $pkg->local_section_data_names;
+
+This returns a list of all the names that will be recognized by the
+C<local_section_data> method.
 
 =head1 TIPS AND TRICKS
 
@@ -289,7 +321,7 @@ Enough said.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo SIGNES.
+This software is copyright (c) 2010 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

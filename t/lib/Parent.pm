@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Parent;
-our $VERSION = '0.093410';
+our $VERSION = '0.100270';
 use Data::Section -setup => { inherit => 0 };
 
 1;
