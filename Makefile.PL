@@ -14,17 +14,20 @@ my %WriteMakefileArgs = (
                                  },
                        'NAME' => 'Data::Section',
                        'DISTNAME' => 'Data-Section',
+                       'CONFIGURE_REQUIRES' => {
+                                                 'ExtUtils::MakeMaker' => '6.11'
+                                               },
                        'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
+                       'BUILD_REQUIRES' => {},
                        'ABSTRACT' => 'read multiple hunks of data out of your DATA section',
                        'EXE_FILES' => [],
-                       'VERSION' => '0.100270',
-                       'LICENSE' => 'perl',
+                       'VERSION' => '0.100770',
                        'PREREQ_PM' => {
                                         'Test::More' => '0.88',
-                                        'ExtUtils::MakeMaker' => '6.11',
                                         'Sub::Exporter' => '0.979',
                                         'MRO::Compat' => '0.09'
-                                      }
+                                      },
+                       'LICENSE' => 'perl'
                      );
 
 

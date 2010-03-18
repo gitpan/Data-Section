@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Grandchild;
-our $VERSION = '0.100270';
+our $VERSION = '0.100770';
 use base 'Child';
 
 1;

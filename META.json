@@ -1,24 +1,27 @@
 {
    "resources" : {
-      "repository" : "http://github.com/rjbs/data-section"
+      "repository" : "git://git.codesimply.com/Data-Section.git"
    },
-   "generated_by" : "Dist::Zilla version 1.100160",
    "meta-spec" : {
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "version" : "0.100270",
+   "generated_by" : "Dist::Zilla version 1.100730",
+   "version" : "0.100770",
    "name" : "Data-Section",
    "author" : [
       "Ricardo SIGNES <rjbs@cpan.org>"
    ],
    "license" : "perl",
+   "build_requires" : {},
    "requires" : {
       "Test::More" : "0.88",
-      "ExtUtils::MakeMaker" : "6.11",
       "Sub::Exporter" : "0.979",
       "MRO::Compat" : "0.09"
    },
-   "abstract" : "read multiple hunks of data out of your DATA section"
+   "abstract" : "read multiple hunks of data out of your DATA section",
+   "configure_requires" : {
+      "ExtUtils::MakeMaker" : "6.11"
+   }
 }
 

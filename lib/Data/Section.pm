@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.100270';
+our $VERSION = '0.100770';
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
 use MRO::Compat 0.09;
@@ -43,6 +43,9 @@ sub _mk_reader_group {
         $template->{ $current } = \(my $blank = q{});
         next LINE;
       }
+
+      last LINE if $line =~ /^__END__/;
+      next LINE if !defined $current and $line =~ /^\s*$/;
 
       Carp::confess("bogus data section: text outside of named section")
         unless defined $current;
@@ -124,7 +127,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.100270
+version 0.100770
 
 =head1 SYNOPSIS
 
@@ -208,6 +211,9 @@ By default, named sections are delimited by lines that look like this:
 You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
 above).
+
+When a line containing only C<__END__> is reached, all processing of sections
+ends.
 
 =head2 section_data_names
 
