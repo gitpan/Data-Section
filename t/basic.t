@@ -17,6 +17,8 @@ use Relaxed;
 use Header;
 use End;
 
+use WindowsNewlines;
+
 my @want = (
   Parent     => { a => \"1\n",   b => \"2\n",  c => \"3\n" },
   Child      => {                b => \"22\n", c => \"33\n", d => \"44\n" },
@@ -157,6 +159,14 @@ is_deeply(
   End->local_section_data,
   { a => \"1\n", b => \"2\n" },
   "ignore __END__",
+);
+
+my $crlf = $^O eq 'MSWin32' ? "\n" : "\r\n";
+
+is_deeply(
+  WindowsNewlines->local_section_data,
+  { n => \"foo$crlf" },
+  "windows newlines work",
 );
 
 done_testing;

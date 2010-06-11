@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 package NoName;
-our $VERSION = '0.100770';
 use Data::Section -setup => { default_name => 'a' };
 
 1;

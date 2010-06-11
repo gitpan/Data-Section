@@ -1,7 +1,9 @@
 use strict;
 use warnings;
 package Data::Section;
-our $VERSION = '0.100770';
+BEGIN {
+  $Data::Section::VERSION = '0.101620';
+}
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
 use MRO::Compat 0.09;
@@ -14,7 +16,19 @@ use Sub::Exporter 0.979 -setup => {
 sub _mk_reader_group {
   my ($mixin, $name, $arg, $col) = @_;
   my $base = $col->{INIT}{into};
-  my $header_re = $arg->{header_re} || qr/\A_+\[\s*([^\]]+?)\s*\]_+\Z/;
+
+  my $default_header_re = qr/
+    \A                # start
+      _+\[            # __[
+        \s*           # any whitespace
+          ([^\]]+?)   # this is the actual name of the section
+        \s*           # any whitespace
+      \]_+            # ]__
+      [\x0d\x0a]{1,2} # possible cariage return for windows files
+    \z                # end
+  /x;
+
+  my $header_re = $arg->{header_re} || $default_header_re;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 
   my %export;
@@ -127,7 +141,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.100770
+version 0.101620
 
 =head1 SYNOPSIS
 

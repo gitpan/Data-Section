@@ -20,5 +20,5 @@ t/lib/NoData.pm
 t/lib/NoName.pm
 t/lib/Parent.pm
 t/lib/Relaxed.pm
-t/release-pod-coverage.t
+t/lib/WindowsNewlines.pm
 t/release-pod-syntax.t

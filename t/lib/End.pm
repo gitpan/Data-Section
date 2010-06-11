@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 package End;
-our $VERSION = '0.100770';
 use Data::Section -setup;
 
 1;
