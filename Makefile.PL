@@ -4,16 +4,18 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'read multiple hunks of data out of your DATA section',
   'AUTHOR' => 'Ricardo SIGNES <rjbs@cpan.org>',
-  'BUILD_REQUIRES' => {},
+  'BUILD_REQUIRES' => {
+    'Test::More' => '0.96'
+  },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.30'
   },
   'DISTNAME' => 'Data-Section',
   'EXE_FILES' => [],
@@ -21,10 +23,9 @@ my %WriteMakefileArgs = (
   'NAME' => 'Data::Section',
   'PREREQ_PM' => {
     'MRO::Compat' => '0.09',
-    'Sub::Exporter' => '0.979',
-    'Test::More' => '0.88'
+    'Sub::Exporter' => '0.979'
   },
-  'VERSION' => '0.101620',
+  'VERSION' => '0.101621',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -1,5 +1,8 @@
 Revision history for Data-Section
 
+0.101621  2011-04-29 07:26:31 America/New_York
+          document the \-escaping behavior of sections
+
 0.101620  2010-06-11 08:14:32 America/New_York
           We now attempt to work with files with Win32 line endings, thanks to
           Christian Walde.

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Data::Section;
 BEGIN {
-  $Data::Section::VERSION = '0.101620';
+  $Data::Section::VERSION = '0.101621';
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -141,7 +141,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.101620
+version 0.101621
 
 =head1 SYNOPSIS
 
@@ -224,7 +224,8 @@ By default, named sections are delimited by lines that look like this:
 
 You can use as many underscores as you want, and the space around the name is
 optional.  This pattern can be configured with the C<header_re> option (see
-above).
+above).  If present, a single leading C<\> is removed, so that sections can
+encode lines that look like section delimiters.
 
 When a line containing only C<__END__> is reached, all processing of sections
 ends.
@@ -245,7 +246,7 @@ package data for all the classes from which the invocant inherits -- as long as
 those classes also inherit from the package into which Data::Section was
 imported.
 
-In other words, given this inheritence tree:
+In other words, given this inheritance tree:
 
   A
    \
@@ -337,11 +338,11 @@ Enough said.
 
 =head1 AUTHOR
 
-  Ricardo SIGNES <rjbs@cpan.org>
+Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo SIGNES.
+This software is copyright (c) 2011 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
