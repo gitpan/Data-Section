@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 package Data::Section;
-BEGIN {
-  $Data::Section::VERSION = '0.101621';
+{
+  $Data::Section::VERSION = '0.101622';
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -133,6 +133,7 @@ sub _mk_reader_group {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -141,7 +142,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.101621
+version 0.101622
 
 =head1 SYNOPSIS
 
@@ -327,7 +328,16 @@ data section in the correct package.
 
 =head1 SEE ALSO
 
+=over 4
+
+=item *
+
+L<article for RJBS Advent 2009|http://advent.rjbs.manxome.org/2009/2009-12-09.html>
+
+=item *
+
 L<Inline::Files|Inline::Files> does something that is at first look similar,
+
 but it works with source filters, and contains the warning:
 
   It is possible that this module may overwrite the source code in files that
@@ -336,16 +346,17 @@ but it works with source filters, and contains the warning:
 
 Enough said.
 
+=back
+
 =head1 AUTHOR
 
 Ricardo SIGNES <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo SIGNES.
+This software is copyright (c) 2008 by Ricardo SIGNES.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
