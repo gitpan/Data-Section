@@ -2,10 +2,11 @@ use strict;
 use warnings;
 package Data::Section;
 {
-  $Data::Section::VERSION = '0.101622';
+  $Data::Section::VERSION = '0.20000'; # TRIAL
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
+use Encode qw/decode/;
 use MRO::Compat 0.09;
 use Sub::Exporter 0.979 -setup => {
   groups     => { setup => \'_mk_reader_group' },
@@ -31,6 +32,8 @@ sub _mk_reader_group {
   my $header_re = $arg->{header_re} || $default_header_re;
   $arg->{inherit} = 1 unless exists $arg->{inherit};
 
+  my $default_encoding = defined $arg->{encoding} ? $arg->{encoding} : 'UTF-8';
+
   my %export;
   my %stash = ();
 
@@ -45,8 +48,9 @@ sub _mk_reader_group {
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
     return $stash{ $pkg } unless defined fileno *$dh;
+    binmode( $dh, ":raw" );
 
-    my $current;
+    my ($current, $current_line);
     if ($arg->{default_name}) {
         $current = $arg->{default_name};
         $template->{ $current } = \(my $blank = q{});
@@ -54,6 +58,7 @@ sub _mk_reader_group {
     LINE: while (my $line = <$dh>) {
       if ($line =~ $header_re) {
         $current = $1;
+        $current_line = 0;
         $template->{ $current } = \(my $blank = q{});
         next LINE;
       }
@@ -64,6 +69,10 @@ sub _mk_reader_group {
       Carp::confess("bogus data section: text outside of named section")
         unless defined $current;
 
+      $current_line++;
+      my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
+        or warn "Invalid character encoding in $current, line $current_line\n";
+      $line = $decoded_line if defined $decoded_line;
       $line =~ s/\A\\//;
 
       ${$template->{$current}} .= $line;
@@ -142,7 +151,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.101622
+version 0.20000
 
 =head1 SYNOPSIS
 
@@ -198,6 +207,9 @@ Optional arguments may be given to Data::Section like this:
   use Data::Section -setup => { ... };
 
 Valid arguments are:
+
+  encoding     - if given, gives the encoding needed to decode bytes in
+                 data sections; default; UTF-8
 
   inherit      - if true, allow packages to inherit the data of the packages
                  from which they inherit; default: true
@@ -277,9 +289,9 @@ This method returns a hashref containing all the data extracted from the
 package on which the method was invoked.  If called on an object, it will
 operate on the package into which the object was blessed.
 
-This method needs to be used carefull, because it's weird.  It returns only the
-data for the package on which it was invoked.  If the package on which it was
-invoked has no data sections, it returns an empty hashref.
+This method needs to be used carefully, because it's weird.  It returns only
+the data for the package on which it was invoked.  If the package on which it
+was invoked has no data sections, it returns an empty hashref.
 
 =head2 local_section_data_names
 
