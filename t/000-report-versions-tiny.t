@@ -50,9 +50,6 @@ sub pmver {
 
 eval { $v .= pmver('Encode','any version') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
-eval { $v .= pmver('File::Spec','any version') };
-eval { $v .= pmver('IO::Handle','any version') };
-eval { $v .= pmver('IPC::Open3','any version') };
 eval { $v .= pmver('MRO::Compat','0.09') };
 eval { $v .= pmver('Sub::Exporter','0.979') };
 eval { $v .= pmver('Test::FailWarnings','any version') };

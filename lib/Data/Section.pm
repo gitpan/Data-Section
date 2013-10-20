@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Data::Section;
 {
-  $Data::Section::VERSION = '0.20000'; # TRIAL
+  $Data::Section::VERSION = '0.200002'; # TRIAL
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -70,9 +70,11 @@ sub _mk_reader_group {
         unless defined $current;
 
       $current_line++;
-      my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
-        or warn "Invalid character encoding in $current, line $current_line\n";
-      $line = $decoded_line if defined $decoded_line;
+      unless ($default_encoding eq 'bytes') {
+        my $decoded_line = eval { decode($default_encoding, $line, Encode::FB_CROAK) }
+          or warn "Invalid character encoding in $current, line $current_line\n";
+        $line = $decoded_line if defined $decoded_line;
+      }
       $line =~ s/\A\\//;
 
       ${$template->{$current}} .= $line;
@@ -145,13 +147,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.20000
+version 0.200002
 
 =head1 SYNOPSIS
 
@@ -210,6 +214,9 @@ Valid arguments are:
 
   encoding     - if given, gives the encoding needed to decode bytes in
                  data sections; default; UTF-8
+
+                 the special value "bytes" will leave the bytes in the string
+                 verbatim
 
   inherit      - if true, allow packages to inherit the data of the packages
                  from which they inherit; default: true
