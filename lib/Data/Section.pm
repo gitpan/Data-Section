@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Data::Section;
 {
-  $Data::Section::VERSION = '0.200002'; # TRIAL
+  $Data::Section::VERSION = '0.200003';
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -155,7 +155,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.200002
+version 0.200003
 
 =head1 SYNOPSIS
 
