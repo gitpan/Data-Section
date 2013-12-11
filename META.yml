@@ -27,7 +27,7 @@ resources:
   bugtracker: https://github.com/rjbs/Data-Section/issues
   homepage: https://github.com/rjbs/Data-Section
   repository: https://github.com/rjbs/Data-Section.git
-version: 0.200004
+version: 0.200005
 x_Dist_Zilla:
   perl:
     version: 5.018001
@@ -55,7 +55,7 @@ x_Dist_Zilla:
           phase: build
           skip: []
       name: '@RJBS/RJBS-Outdated'
-      version: 0.014
+      version: 0.015
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -66,7 +66,7 @@ x_Dist_Zilla:
           phase: release
           skip: []
       name: '@RJBS/CPAN-Outdated'
-      version: 0.014
+      version: 0.015
     -
       class: Dist::Zilla::Plugin::PruneCruft
       name: '@RJBS/@Filter/PruneCruft'

@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Data::Section;
 {
-  $Data::Section::VERSION = '0.200004';
+  $Data::Section::VERSION = '0.200005';
 }
 # ABSTRACT: read multiple hunks of data out of your DATA section
 
@@ -48,7 +48,7 @@ sub _mk_reader_group {
 
     my $dh = do { no strict 'refs'; \*{"$pkg\::DATA"} }; ## no critic Strict
     return $stash{ $pkg } unless defined fileno *$dh;
-    binmode( $dh, ":raw" );
+    binmode( $dh, ":raw :bytes" );
 
     my ($current, $current_line);
     if ($arg->{default_name}) {
@@ -155,7 +155,7 @@ Data::Section - read multiple hunks of data out of your DATA section
 
 =head1 VERSION
 
-version 0.200004
+version 0.200005
 
 =head1 SYNOPSIS
 
